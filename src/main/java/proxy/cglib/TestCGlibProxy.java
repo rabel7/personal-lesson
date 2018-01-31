@@ -4,6 +4,7 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
@@ -12,8 +13,12 @@ import java.lang.reflect.Method;
 public class TestCGlibProxy {
 
     public static void main(String[] args) throws Exception {
-        A a = new A();
-        new CGlibProxyHandler<A>().createProxy(a).foo();
+//        A a = new A();
+//        new CGlibProxyHandler<A>().createProxy(a).foo();
+        CGlibProxyHandler<A> invocationHandler = new CGlibProxyHandler<>();
+        A proxy = invocationHandler.createProxy(new A());
+        proxy.foo();
+
     }
 }
 

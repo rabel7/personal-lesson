@@ -14,8 +14,12 @@ import java.lang.reflect.Proxy;
 public class TestDynamicProxy {
 
     public static void main(String[] args) {
-        A2 a2 = new A2();
-        new DynamicProxyHandler<Interface2>().createProxy(a2).foo();
+//        new DynamicProxyHandler<Interface2>().createProxy(a2).foo();
+        DynamicProxyHandler<Interface2> dynamicProxyHandler = new DynamicProxyHandler<>();
+
+        //创建a2的代理类
+        Interface2 proxy = dynamicProxyHandler.createProxy(new A2());
+        proxy.foo();
     }
 }
 

@@ -22,6 +22,7 @@ public class CGlibTest {
     @Test
     public void testFixedValue() throws Exception {
         Enhancer enhancer = new Enhancer();
+        //创建一个继承SampleClass的子类
         enhancer.setSuperclass(SampleClass.class);
         enhancer.setCallback(new FixedValue() {
             @Override
@@ -81,6 +82,7 @@ public class CGlibTest {
                 if (method.getDeclaringClass() != Object.class && method.getReturnType() == String.class) {
                     return "Hello cglib!";
                 } else {
+                    //调用父类的方法
                     return proxy.invokeSuper(obj, args);
                 }
             }
