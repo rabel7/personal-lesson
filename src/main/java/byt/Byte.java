@@ -1,6 +1,7 @@
 package byt;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 /**
  * 证明在不同的编码下中文占的字节数不相同，但英文都占一个字节
@@ -14,6 +15,8 @@ public class Byte {
         System.out.println("unicode:" + str.getBytes("unicode").length);
         //UTF-8 长度为4 中文3个字节 英文1个
         System.out.println(System.getProperty("file.encoding") + ":" + str.getBytes().length);
+        //默认utf-8
+        System.out.println(Charset.defaultCharset() + ":" + str.getBytes(Charset.defaultCharset()).length);
         //GBK 长度为3 中文2个字节 英文1个
         System.out.println("GBK:" + str.getBytes("GBK").length);
         //ISO-8859-1 长度为2 中文1个字节 英文1个
