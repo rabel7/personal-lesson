@@ -1,31 +1,26 @@
-package serialize.hessian;
+package serialize.primitive;
 
 import com.caucho.hessian.io.Hessian2Input;
 import com.caucho.hessian.io.Hessian2Output;
-import javafx.beans.binding.ObjectExpression;
 import org.junit.Assert;
 import org.junit.Test;
 import serialize.SerialTest;
+import serialize.hessian.HessianSerializeUtil;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * http://hessian.caucho.com/doc/hessian-overview.xtp#HessianSerialization
- */
-public class HessianSerializeUtil {
+public class PrimitiveSerializeUtil {
 
     @Test
-    public void test() throws IOException {
+    public void test() throws IOException, ClassNotFoundException {
         SerialTest test = before();
 
 
-        byte[] bytes = HessianSerializeUtil.serialize(test);
+        byte[] bytes = PrimitiveSerializeUtil.serialize(test);
 
-        SerialTest test2 = (SerialTest) HessianSerializeUtil.deserialize(bytes);
+        SerialTest test2 = (SerialTest) PrimitiveSerializeUtil.deserialize(bytes);
 
         Assert.assertEquals(test, test2);
 
@@ -46,7 +41,7 @@ public class HessianSerializeUtil {
 
     public static byte[] serialize(Object obj) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        Hessian2Output out = new Hessian2Output(os);
+        ObjectOutputStream out = new ObjectOutputStream(os);
         out.writeObject(obj);
         out.flush();
         byte[] bytes = os.toByteArray();
@@ -54,14 +49,15 @@ public class HessianSerializeUtil {
         return bytes;
     }
 
-    public static Object deserialize(byte[] bytes) throws IOException {
-       return deserialize(bytes, null);
+    public static Object deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+        return deserialize(bytes, null);
     }
 
-    public static Object deserialize(byte[] bytes, Class cls) throws IOException {
+    public static Object deserialize(byte[] bytes, Class cls) throws IOException, ClassNotFoundException {
         ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-        Hessian2Input in = new Hessian2Input(is);
-        Object obj = in.readObject(cls);
+        ObjectInputStream in = new ObjectInputStream(is);
+
+        Object obj = in.readObject();
         is.close();
         return obj;
     }
