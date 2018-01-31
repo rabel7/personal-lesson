@@ -11,6 +11,9 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * protobuf  protostuff kyro fst thrift
+ */
 public class PrimitiveSerializeUtil {
 
     @Test
