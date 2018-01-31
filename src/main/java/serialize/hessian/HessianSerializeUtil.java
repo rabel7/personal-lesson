@@ -25,7 +25,7 @@ public class HessianSerializeUtil {
 
         byte[] bytes = HessianSerializeUtil.serialize(test);
 
-        SerialTest test2 = (SerialTest) HessianSerializeUtil.deserialize(bytes);
+        SerialTest test2 = HessianSerializeUtil.deserialize(bytes);
 
         Assert.assertEquals(test, test2);
 
@@ -44,7 +44,7 @@ public class HessianSerializeUtil {
         return test;
     }
 
-    public static byte[] serialize(Object obj) throws IOException {
+    public static  byte[] serialize(Object obj) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         Hessian2Output out = new Hessian2Output(os);
         out.writeObject(obj);
@@ -54,14 +54,14 @@ public class HessianSerializeUtil {
         return bytes;
     }
 
-    public static Object deserialize(byte[] bytes) throws IOException {
-       return deserialize(bytes, null);
+    public static <T> T deserialize(byte[] bytes) throws IOException {
+       return HessianSerializeUtil.deserialize(bytes, null);
     }
 
-    public static Object deserialize(byte[] bytes, Class cls) throws IOException {
+    public static <T> T deserialize(byte[] bytes, Class cls) throws IOException {
         ByteArrayInputStream is = new ByteArrayInputStream(bytes);
         Hessian2Input in = new Hessian2Input(is);
-        Object obj = in.readObject(cls);
+        T obj = (T) in.readObject(cls);
         is.close();
         return obj;
     }
