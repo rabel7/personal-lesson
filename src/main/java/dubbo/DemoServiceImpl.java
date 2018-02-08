@@ -1,5 +1,6 @@
 package dubbo;
 
+import cn.com.aperfect.DemoService;
 import com.alibaba.dubbo.config.annotation.Service;
 
 @Service
