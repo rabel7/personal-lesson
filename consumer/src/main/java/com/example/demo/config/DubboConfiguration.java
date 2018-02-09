@@ -20,7 +20,7 @@ public class DubboConfiguration {
     public ConsumerConfig consumerConfig() {
         ConsumerConfig consumerConfig = new ConsumerConfig();
         consumerConfig.setTimeout(3000);
-//        consumerConfig.setClient("netty4");
+        consumerConfig.setClient("netty4");
         return consumerConfig;
     }
 

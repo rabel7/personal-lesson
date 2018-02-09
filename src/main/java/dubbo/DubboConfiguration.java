@@ -1,6 +1,8 @@
 package dubbo;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.ConsumerConfig;
+import com.alibaba.dubbo.config.ProviderConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,14 @@ public class DubboConfiguration {
         ApplicationConfig applicationConfig = new ApplicationConfig();
         applicationConfig.setName("provider-test");
         return applicationConfig;
+    }
+
+    @Bean
+    public ProviderConfig providerConfig() {
+        ProviderConfig providerConfig = new ProviderConfig();
+        providerConfig.setTimeout(3000);
+        providerConfig.setClient("netty4");
+        return providerConfig;
     }
 
     @Bean
